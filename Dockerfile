@@ -11,8 +11,9 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 WORKDIR /workspace
 COPY requirements.txt requirements.txt
+COPY generate.py generate.py
 RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10 \
     && python3.10 -m pip install -r requirements.txt \
     && python3.10 -m pip install numpy --pre torch --force-reinstall --index-url https://download.pytorch.org/whl/nightly/cu118
 COPY . .
-ENTRYPOINT [ "python3.10"]
+ENTRYPOINT ["python3.10", "generate.py"]
